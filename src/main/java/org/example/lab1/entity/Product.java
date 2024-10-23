@@ -3,6 +3,7 @@ package org.example.lab1.entity;
 public class Product {
 
     private long id;
+
     private String name;
     private double price;
     private long categoryId;
