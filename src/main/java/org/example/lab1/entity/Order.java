@@ -1,2 +1,4 @@
-package org.example.lab1.entity;public class Order {
+package org.example.lab1.entity;
+
+public class Order {
 }
