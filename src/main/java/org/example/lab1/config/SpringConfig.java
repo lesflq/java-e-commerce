@@ -13,8 +13,8 @@ import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
 
 @Configuration
-@ComponentScan("org.example.lab1")
 @EnableWebMvc
+@ComponentScan("org.example.lab1")
 public class SpringConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;

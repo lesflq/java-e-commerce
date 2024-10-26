@@ -18,6 +18,16 @@ public class ProductDTO {
     private long categoryId;
     private String description;
 
+    public ProductDTO(long id, String name, double price, long categoryId) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.categoryId = categoryId;
+    }
+
+    public ProductDTO() {
+    }
+
     public long getId() {
         return id;
     }

@@ -1,33 +1,45 @@
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '3.3.4'
+    id 'io.spring.dependency-management' version '1.1.0'
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+group = 'org.example.lab1'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '21'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    // https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter
-    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.3.4'
-    // https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring6
-    implementation group: 'org.thymeleaf', name: 'thymeleaf-spring6', version: '3.1.2.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.18.0'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // Uncomment if needed
+    implementation 'jakarta.servlet:jakarta.servlet-api:6.1.0' // Provided scope for servlet API
+    implementation 'org.thymeleaf:thymeleaf-spring6:3.1.2.RELEASE'
+
+    // Testing dependencies
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mockito:mockito-core:5.14.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.11.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.11.3'
+    testImplementation 'junit:junit:3.8.1'
+    testImplementation 'io.springfox:springfox-swagger2:3.0.0'
+
+    // MapStruct annotation processor
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.3.4'
-
-
-
-
-
 }
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ['-parameters']
+}
+
+
 
 test {
     useJUnitPlatform()

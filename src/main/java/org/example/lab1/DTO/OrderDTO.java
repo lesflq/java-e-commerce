@@ -1,6 +1,7 @@
 package org.example.lab1.DTO;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import org.example.lab1.entity.Product;
 
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ public class OrderDTO {
     private long id;
     private List<Product> products;
     @NotNull
+    @Past
     private LocalDateTime orderDate;
     private String customerName;
 }

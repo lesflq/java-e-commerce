@@ -1,17 +1,15 @@
-package org.example.lab1.contollers;
+package org.example.lab1.controllers;
 
 import org.example.lab1.DTO.ProductDTO;
-import org.example.lab1.entity.Product;
 import org.example.lab1.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/product")
 public class ProductController {
 
