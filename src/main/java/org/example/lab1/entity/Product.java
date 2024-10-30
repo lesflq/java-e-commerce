@@ -1,7 +1,5 @@
 package org.example.lab1.entity;
 
-import org.example.lab1.validation.CosmicWordCheck;
-
 public class Product {
 
     private long id;

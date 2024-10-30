@@ -1,7 +1,6 @@
 package org.example.lab1.service.implementation;
 
 import org.example.lab1.DTO.ProductDTO;
-import org.example.lab1.entity.Category;
 import org.example.lab1.entity.Product;
 import org.example.lab1.mappers.ProductMapper;
 import org.example.lab1.service.ProductService;

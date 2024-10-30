@@ -1,6 +1,5 @@
 package org.example.lab1.controllers;
 
-
 import org.example.lab1.DTO.ProductDTO;
 import org.example.lab1.service.ProductService;
 import org.junit.jupiter.api.Test;
