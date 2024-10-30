@@ -3,15 +3,12 @@ package org.example.lab1.controllers;
 
 import org.example.lab1.DTO.ProductDTO;
 import org.example.lab1.service.ProductService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,21 +18,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
 class ProductControllerTest {
 
-    @Mock
+    @MockBean
     private ProductService productService;
 
-    @InjectMocks
+    @Autowired
     private ProductController productController;
-
-    private MockMvc mockMvc;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(productController).build();
-    }
 
     @Test
     void testCreateProduct() {

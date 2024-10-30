@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
+//@RequestMapping("/product")
 public class ProductController {
 
     private final ProductService productService;
@@ -20,32 +20,32 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping
+    @PostMapping("/product")
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
         ProductDTO createdProduct = productService.createProduct(productDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
 
-    @GetMapping
+    @GetMapping("/products")
     public ResponseEntity<List<ProductDTO>> getAllProducts() {
         List<ProductDTO> products = productService.getAllProducts();
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
+    @GetMapping("/product/{id}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable("id") Long id) {
         ProductDTO product = productService.getProductById(id);
         return ResponseEntity.ok(product);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+    @PutMapping("/product/{id}")
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") Long id, @RequestBody ProductDTO productDTO) {
         ProductDTO updatedProduct = productService.updateProduct(id, productDTO);
         return ResponseEntity.ok(updatedProduct);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+    @DeleteMapping("/product/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable("id") Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
