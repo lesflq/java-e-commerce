@@ -46,7 +46,7 @@ class ProductControllerIT {
 
         when(productService.createProduct(any(ProductDTO.class))).thenReturn(createdProduct);
 
-        mockMvc.perform(post("/product")
+        mockMvc.perform(post("/api/v1/product")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(productDTO)))
                 .andExpect(status().isCreated())
@@ -61,7 +61,7 @@ class ProductControllerIT {
 
         when(productService.getAllProducts()).thenReturn(productList);
 
-        mockMvc.perform(get("/products")
+        mockMvc.perform(get("/api/v1/products")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(productList)));
@@ -76,7 +76,7 @@ class ProductControllerIT {
 
         when(productService.getProductById(anyLong())).thenReturn(product);
 
-        mockMvc.perform(get("/product/{id}", productId)
+        mockMvc.perform(get("/api/v1/product/{id}", productId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(product)));
@@ -97,7 +97,7 @@ class ProductControllerIT {
 
         when(productService.updateProduct(anyLong(), any(ProductDTO.class))).thenReturn(updatedProduct);
 
-        mockMvc.perform(put("/product/{id}", productId)
+        mockMvc.perform(put("/api/v1/product/{id}", productId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(productDTO)))
                 .andExpect(status().isOk())
@@ -110,7 +110,7 @@ class ProductControllerIT {
     void testDeleteProduct() throws Exception {
         Long productId = 1L;
 
-        mockMvc.perform(delete("/product/{id}", productId)
+        mockMvc.perform(delete("/api/v1/product/{id}", productId)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
