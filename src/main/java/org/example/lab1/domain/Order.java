@@ -1,4 +1,4 @@
-package org.example.lab1.entity;
+package org.example.lab1.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;

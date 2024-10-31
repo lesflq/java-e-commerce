@@ -1,4 +1,4 @@
-package org.example.lab1.entity;
+package org.example.lab1.domain;
 
 public class Category {
     private long id;

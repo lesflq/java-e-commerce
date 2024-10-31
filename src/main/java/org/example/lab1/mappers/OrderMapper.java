@@ -1,7 +1,7 @@
 package org.example.lab1.mappers;
 
 import org.example.lab1.DTO.OrderDTO;
-import org.example.lab1.entity.Order;
+import org.example.lab1.domain.Order;
 import org.mapstruct.Mapper;
 
 import java.util.List;

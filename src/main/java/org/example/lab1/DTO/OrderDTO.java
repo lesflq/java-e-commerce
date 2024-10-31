@@ -2,7 +2,7 @@ package org.example.lab1.DTO;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-import org.example.lab1.entity.Product;
+import org.example.lab1.domain.Product;
 
 import java.time.LocalDateTime;
 import java.util.List;

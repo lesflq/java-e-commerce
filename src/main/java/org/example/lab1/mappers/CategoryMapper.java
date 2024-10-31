@@ -1,7 +1,7 @@
 package org.example.lab1.mappers;
 
 import org.example.lab1.DTO.CategoryDTO;
-import org.example.lab1.entity.Category;
+import org.example.lab1.domain.Category;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

@@ -1,7 +1,8 @@
 package org.example.lab1.service.implementation;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import org.example.lab1.DTO.ProductDTO;
-import org.example.lab1.entity.Product;
+import org.example.lab1.domain.Product;
 import org.example.lab1.mappers.ProductMapper;
 import org.example.lab1.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
         Product product = mockProductDatabase.get(id);
+        System.out.println("Product retrieved: " + product);
         if (product == null) {
             throw new RuntimeException("Product not found");
         }
@@ -61,6 +63,7 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.toDTO(product);
     }
 
+
     @Override
     public void deleteProduct(Long id) {
         if (!mockProductDatabase.containsKey(id)) {
@@ -68,4 +71,6 @@ public class ProductServiceImpl implements ProductService {
         }
         mockProductDatabase.remove(id); // видаляємо продукт
     }
+
+
 }

@@ -1,23 +1,22 @@
 package org.example.lab1.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 import org.example.lab1.DTO.ProductDTO;
-import org.example.lab1.entity.Product;
+import org.example.lab1.domain.Product;
 import org.example.lab1.mappers.ProductMapper;
+import org.example.lab1.service.ProductService;
 import org.example.lab1.service.implementation.ProductServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.Arrays;
 import java.util.List;
 
-class ProductServiceTest  {
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+class ProductServiceTest {
 
     @Mock
     private ProductMapper productMapper;
@@ -25,79 +24,92 @@ class ProductServiceTest  {
     @InjectMocks
     private ProductServiceImpl productService;
 
-    private Product productEntity;
     private ProductDTO productDTO;
+    private Product product;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        productEntity = new Product(1L, "Galaxy Phone", 799.99, 1);
-        productDTO = new ProductDTO(1L, "Galaxy Phone", 799.99, 1);
+
+        productDTO = new ProductDTO();
+        productDTO.setName("Test Product");
+        productDTO.setPrice(100.0);
+        productDTO.setDescription("Test Description");
+        productDTO.setCategoryId(1L);
+
+        product = new Product();
+        product.setId(1L);
+        product.setName("Test Product");
+        product.setPrice(100.0);
+        product.setDescription("Test Description");
+        product.setCategoryId(1L);
+
+        when(productMapper.toEntity(productDTO)).thenReturn(product);
+        when(productMapper.toDTO(product)).thenReturn(productDTO);
     }
 
     @Test
     void testCreateProduct() {
-        // Мокуємо перетворення DTO в entity
-        when(productMapper.toEntity(any(ProductDTO.class))).thenReturn(productEntity);
+        ProductDTO createdProduct = productService.createProduct(productDTO);
 
-        // Мокуємо перетворення entity в DTO після збереження
-        when(productMapper.toDTO(any(Product.class))).thenReturn(productDTO);
-
-        ProductDTO savedProduct = productService.createProduct(productDTO);
-
-        // Перевіряємо, чи збережений продукт не є null
-        assertNotNull(savedProduct);
-
-        // Перевіряємо, що продукт збережено коректно
-        assertEquals(productDTO.getName(), savedProduct.getName());
-        assertEquals(1L, savedProduct.getId());
+        assertNotNull(createdProduct);
+        assertEquals("Test Product", createdProduct.getName());
+        verify(productMapper).toEntity(productDTO);
+        verify(productMapper).toDTO(product);
     }
 
     @Test
     void testGetAllProducts() {
-        when(productMapper.toDTOs(anyList())).thenReturn(Arrays.asList(productDTO));
+        when(productMapper.toDTOs(anyList())).thenReturn(List.of(productDTO));
 
         List<ProductDTO> products = productService.getAllProducts();
 
         assertNotNull(products);
+        assertFalse(products.isEmpty());
         assertEquals(1, products.size());
-        assertEquals("Galaxy Phone", products.get(0).getName());
+        assertEquals("Test Product", products.get(0).getName());
+        verify(productMapper).toDTOs(anyList());
     }
 
     @Test
     void testGetProductById() {
-        // Мокуємо перетворення DTO в entity
-        when(productMapper.toEntity(any(ProductDTO.class))).thenReturn(productEntity);
-        // Мокуємо перетворення entity в DTO
-        when(productMapper.toDTO(any(Product.class))).thenReturn(productDTO);
+        productService.createProduct(productDTO); // Збереження продукту для подальшого пошуку
 
-        // Створюємо продукт і перевіряємо
-        ProductDTO createdProduct = productService.createProduct(productDTO);
-        assertNotNull(createdProduct);
-
-        // Отримуємо продукт за його ID
         ProductDTO foundProduct = productService.getProductById(1L);
 
         assertNotNull(foundProduct);
-        assertEquals("Galaxy Phone", foundProduct.getName());
+        assertEquals("Test Product", foundProduct.getName());
+
+        // Оскільки `toDTO` викликається двічі: один раз у `createProduct` і один раз у `getProductById`
+        verify(productMapper, times(2)).toDTO(any(Product.class));
     }
 
+    @Test
+    void testUpdateProduct() {
+        productService.createProduct(productDTO); // Збереження продукту для подальшого оновлення
+
+        productDTO.setName("Updated Product");
+        productDTO.setPrice(150.0);
+
+        when(productMapper.toDTO(any(Product.class))).thenReturn(productDTO);
+
+        ProductDTO updatedProduct = productService.updateProduct(1L, productDTO);
+
+        assertNotNull(updatedProduct);
+        assertEquals("Updated Product", updatedProduct.getName());
+        assertEquals(150.0, updatedProduct.getPrice());
+
+        // Оскільки `toDTO` викликається двічі: один раз у `createProduct` і один раз у `updateProduct`
+        verify(productMapper, times(2)).toDTO(any(Product.class));
+    }
 
     @Test
     void testDeleteProduct() {
-        // Мокуємо перетворення DTO в entity
-        when(productMapper.toEntity(any(ProductDTO.class))).thenReturn(productEntity);
-        // Мокуємо перетворення entity в DTO
-        when(productMapper.toDTO(any(Product.class))).thenReturn(productDTO);
+        productService.createProduct(productDTO);
 
-        // Створюємо продукт
-        ProductDTO createdProduct = productService.createProduct(productDTO);
-        assertNotNull(createdProduct);
+        assertDoesNotThrow(() -> productService.deleteProduct(1L));
 
-        // Видаляємо продукт
-        productService.deleteProduct(1L);
-
-        // Перевіряємо, що при спробі отримати видалений продукт виникає RuntimeException
-        assertThrows(RuntimeException.class, () -> productService.getProductById(1L), "Product not found");
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> productService.getProductById(1L));
+        assertEquals("Product not found", exception.getMessage());
     }
 }

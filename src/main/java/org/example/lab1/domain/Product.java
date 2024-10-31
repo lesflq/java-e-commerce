@@ -1,4 +1,4 @@
-package org.example.lab1.entity;
+package org.example.lab1.domain;
 
 public class Product {
 
@@ -13,6 +13,10 @@ public class Product {
         this.name = name;
         this.price = price;
         this.categoryId = categoryId;
+    }
+
+    public Product() {
+
     }
 
     public long getId() {
