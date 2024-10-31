@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> getAllProducts() {
         List<Product> products = new ArrayList<>(mockProductDatabase.values());
-        return productMapper.toDTOs(products);
+        return productMapper.toProductDTOList(products);
     }
 
     @Override

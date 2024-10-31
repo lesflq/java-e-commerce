@@ -56,30 +56,14 @@ public class ProductMapperImpl implements ProductMapper {
     }
 
     @Override
-    public List<ProductDTO> toDTOs(List<Product> productList) {
-        if ( productList == null ) {
-            return null;
-        }
-
-        List<ProductDTO> list = new ArrayList<ProductDTO>( productList.size() );
-        for ( Product product : productList ) {
-            list.add( toDTO( product ) );
-        }
-
-        return list;
+    public List<ProductDTO> toProductDTOList(List<Product> productList) {
+        return List.of();
     }
 
     @Override
-    public List<Product> toEntities(List<ProductDTO> productDTOList) {
-        if ( productDTOList == null ) {
-            return null;
-        }
-
-        List<Product> list = new ArrayList<Product>( productDTOList.size() );
-        for ( ProductDTO productDTO : productDTOList ) {
-            list.add( toEntity( productDTO ) );
-        }
-
-        return list;
+    public List<Product> toProductEntityList(List<ProductDTO> productDTOList) {
+        return List.of();
     }
+
+
 }

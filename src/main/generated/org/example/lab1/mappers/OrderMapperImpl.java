@@ -38,30 +38,14 @@ public class OrderMapperImpl implements OrderMapper {
     }
 
     @Override
-    public List<OrderDTO> toDTOs(List<OrderDTO> ordersList) {
-        if ( ordersList == null ) {
-            return null;
-        }
-
-        List<OrderDTO> list = new ArrayList<OrderDTO>( ordersList.size() );
-        for ( OrderDTO orderDTO : ordersList ) {
-            list.add( orderDTO );
-        }
-
-        return list;
+    public List<OrderDTO> toOrderDTOList(List<Order> ordersList) {
+        return List.of();
     }
 
     @Override
-    public List<Order> toEntities(List<OrderDTO> ordersDTOList) {
-        if ( ordersDTOList == null ) {
-            return null;
-        }
-
-        List<Order> list = new ArrayList<Order>( ordersDTOList.size() );
-        for ( OrderDTO orderDTO : ordersDTOList ) {
-            list.add( toEntity( orderDTO ) );
-        }
-
-        return list;
+    public List<Order> toOrderEntityList(List<OrderDTO> ordersDTOList) {
+        return List.of();
     }
+
+
 }

@@ -60,7 +60,7 @@ class ProductServiceTest {
 
     @Test
     void testGetAllProducts() {
-        when(productMapper.toDTOs(anyList())).thenReturn(List.of(productDTO));
+        when(productMapper.toProductDTOList(anyList())).thenReturn(List.of(productDTO));
 
         List<ProductDTO> products = productService.getAllProducts();
 
@@ -68,7 +68,7 @@ class ProductServiceTest {
         assertFalse(products.isEmpty());
         assertEquals(1, products.size());
         assertEquals("Test Product", products.get(0).getName());
-        verify(productMapper).toDTOs(anyList());
+        verify(productMapper).toProductDTOList(anyList());
     }
 
     @Test
